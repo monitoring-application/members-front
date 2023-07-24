@@ -89,4 +89,17 @@ export class SignUpService {
     });
     return data;
   }
+  memberLogin(code: string) {
+    var url: string = routes.baseBackendUrl + routes.signUp + '/member/' + code;
+    let header = new HttpHeaders();
+    header = header.set('api-key', routes.apiKey);
+
+    return this.httpClient.post(
+      url,
+      {},
+      {
+        headers: header,
+      }
+    );
+  }
 }

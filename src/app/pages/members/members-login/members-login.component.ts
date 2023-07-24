@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Router } from '@angular/router';
 import { Subscription, filter, map } from 'rxjs';
+import { SignUpService } from 'src/app/services/sign-up.service';
 
 @Component({
   selector: 'app-members-login',
@@ -11,7 +12,11 @@ import { Subscription, filter, map } from 'rxjs';
 export class MembersLoginComponent implements OnInit {
   mediaSub!: Subscription;
   public isMobile: boolean = false;
-  constructor(public router: Router, public mediaObserver: MediaObserver) {}
+  constructor(
+    public router: Router,
+    public mediaObserver: MediaObserver,
+    private signUpService: SignUpService
+  ) {}
 
   ngOnInit(): void {
     this.mediaSub = this.mediaObserver
@@ -25,6 +30,21 @@ export class MembersLoginComponent implements OnInit {
       });
   }
   submit() {
+    // this.signUpService.memberLogin('AKFTNZDDP')?.subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //   },
+    //   error: (err) => {
+    //     console.log({
+    //       error: err,
+    //     });
+    //   },
+    //   complete: () => {
+    //     setTimeout(async () => {
+    //       // this.isLoading = false;
+    //     }, 1000);
+    //   },
+    // });
     this.router.navigateByUrl('/member-attachments');
   }
 }
