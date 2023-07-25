@@ -9,5 +9,9 @@ button.fonts{
 
   img.rose-lin {
     width: 50%;
+    margin-left: 40%;
+  }
+  img.rose-lin-mobile {
+    width: 50%;
     margin-left: 25%;
   }

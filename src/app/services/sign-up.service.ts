@@ -89,17 +89,21 @@ export class SignUpService {
     });
     return data;
   }
-  memberLogin(code: string) {
-    var url: string = routes.baseBackendUrl + routes.signUp + '/member/' + code;
+  onLogin(params: any) {
+    var url: string = routes.baseBackendUrl + routes.signUp + '/login';
     let header = new HttpHeaders();
     header = header.set('api-key', routes.apiKey);
 
-    return this.httpClient.post(
-      url,
-      {},
-      {
-        headers: header,
-      }
-    );
+    return new Promise((res, rej) => {
+      this.httpClient.post(url, params, { headers: header }).subscribe({
+        next: async (resp: any) => {
+          res(resp);
+        },
+        error: (err) => {
+          console.log(err);
+          rej(err);
+        },
+      });
+    });
   }
 }
