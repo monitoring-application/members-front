@@ -11,5 +11,6 @@ export interface PayoutRequestFormGroup extends FormGroup {
     amount: AbstractControl;
     status: AbstractControl;
     created_at: AbstractControl;
+    paid_at: AbstractControl;
   };
 }

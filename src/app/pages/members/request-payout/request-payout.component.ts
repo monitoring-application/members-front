@@ -8,7 +8,7 @@ import { PayoutRequestService } from 'src/app/services/payout-request.service';
 import { IPayoutRequestModel } from 'src/app/shared/model/interface/i-payout-request-model';
 import { NotificationType } from 'src/app/util/notification_type';
 
-const columns = ['method', 'amount', 'dateRequested', 'status'];
+const columns = ['method', 'amount', 'dateRequested', 'datePaid', 'status'];
 
 @Component({
   selector: 'app-request-payout',

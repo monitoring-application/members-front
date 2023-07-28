@@ -20,6 +20,7 @@ export class PayoutRequestService {
     amount: ['', Validators.required],
     status: 0,
     created_at: new Date(),
+    paid_at: new Date(),
   }) as PayoutRequestFormGroup;
   resetform = this.fb.group({
     id: '',
@@ -29,6 +30,7 @@ export class PayoutRequestService {
     amount: ['', Validators.required],
     status: 0,
     created_at: new Date(),
+    paid_at: new Date(),
   }) as PayoutRequestFormGroup;
 
   constructor(

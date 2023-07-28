@@ -42,7 +42,7 @@
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef>Amount</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.amount }}
+            {{ element.amount | currency : "PHP" : "symbol" }}
           </td>
         </ng-container>
 
@@ -50,6 +50,13 @@
           <th mat-header-cell *matHeaderCellDef>Date Requested</th>
           <td mat-cell *matCellDef="let element">
             {{ element.created_at | date : "short" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="datePaid">
+          <th mat-header-cell *matHeaderCellDef>Date Paid</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.paid_at | date : "short" }}
           </td>
         </ng-container>
 

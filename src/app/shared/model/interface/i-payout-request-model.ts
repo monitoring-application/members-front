@@ -6,4 +6,5 @@ export interface IPayoutRequestModel {
   amount: number;
   status: number;
   created_at: Date;
+  paid_at: Date;
 }
