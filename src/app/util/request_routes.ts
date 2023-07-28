@@ -11,6 +11,7 @@ export class requestRoutes {
 
   public contactUs: string = 'contact-us';
   public signUp: string = 'sign-up';
+  public payoutRequest: string = 'request-payout';
   public downloadLink: string = 'dl-link';
   public responder: string = 'responder';
   public apiKey: string = '6885ab74-d692-4ad2-a6dc-8690ff3e7a24';

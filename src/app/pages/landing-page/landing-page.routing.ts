@@ -1,6 +1,12 @@
 import { Routes } from '@angular/router';
-import { MembersListComponent } from '../members/members-list/members-list.component';
+import { ReferalsComponent } from '../members/referals/referals.component';
+import { RequestPayoutComponent } from '../members/request-payout/request-payout.component';
+import { MemberDashboardComponent } from '../members/member-dashboard/member-dashboard.component';
+import { AttachmentsComponent } from '../members/attachments/attachments.component';
 
 export const LandingPageRoutes: Routes = [
-  { path: 'members', component: MembersListComponent },
+  { path: 'dashboard', component: MemberDashboardComponent },
+  { path: 'attachments', component: AttachmentsComponent },
+  { path: 'referrals', component: ReferalsComponent },
+  { path: 'request-payout', component: RequestPayoutComponent },
 ];

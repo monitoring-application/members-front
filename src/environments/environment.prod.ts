@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   apiProtocol: 'http',
   // apiUrl: '146.190.145.208:3005',
-  // backendUrl: 'https://146.190.145.208:3005',
+  // backendUrl: 'http://localhost:3000',
   apiUrl: 'https://api.friendsofroselin.com',
   backendUrl: 'https://api.friendsofroselin.com',
   apiPort: '3000',

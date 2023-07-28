@@ -103,6 +103,8 @@ export class SidebarComponent implements OnInit {
     this.mediaWatcher.unsubscribe();
   }
   logout() {
-    this.router.navigateByUrl('/login');
+    sessionStorage.setItem('isLoggedIn', 'false');
+    window.location.reload();
+    // this.router.navigateByUrl('/member-login');
   }
 }

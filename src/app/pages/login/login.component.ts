@@ -47,27 +47,27 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    if (this.username != '' && this.password != '') {
-      if (this.isProcessing) return;
-      this.hide = true;
-      this.isProcessing = true;
-      setTimeout(() => {
-        this.authService
-          .userLogin(this.username, this.password)
-          .then((res) => {
-            this.router.navigate(['']);
-            this.isProcessing = false;
-          })
-          .catch((err) => {
-            var str = err.error.message || '';
-            this.loginError = str[0].toUpperCase() + str.slice(1); //"Invalid Credentials";
-            this.isProcessing = false;
-          });
-      }, 3000);
-    } else {
-      this.loginError = 'Invalid Credentials';
-      this.isProcessing = false;
-    }
+    // if (this.username != '' && this.password != '') {
+    //   if (this.isProcessing) return;
+    //   this.hide = true;
+    //   this.isProcessing = true;
+    //   setTimeout(() => {
+    //     this.authService
+    //       .userLogin(this.username, this.password)
+    //       .then((res) => {
+    //         this.router.navigate(['']);
+    //         this.isProcessing = false;
+    //       })
+    //       .catch((err) => {
+    //         var str = err.error.message || '';
+    //         this.loginError = str[0].toUpperCase() + str.slice(1); //"Invalid Credentials";
+    //         this.isProcessing = false;
+    //       });
+    //   }, 3000);
+    // } else {
+    //   this.loginError = 'Invalid Credentials';
+    //   this.isProcessing = false;
+    // }
   }
 
   back() {

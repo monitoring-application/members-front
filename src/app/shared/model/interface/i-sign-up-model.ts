@@ -2,11 +2,10 @@ export interface ISignUpModel {
   id: string;
   member_code: string;
   full_name: string;
-  first_name: string;
-  last_name: string;
   email: string;
-  referal_code: string;
+  password: string;
   mobile_number: string;
-  downline: number;
+  upline: string;
+  ttlDownline: number;
   status: number;
 }

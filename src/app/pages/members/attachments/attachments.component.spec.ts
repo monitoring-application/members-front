@@ -11,9 +11,7 @@ describe('AttachmentsComponent', () => {
       declarations: [ AttachmentsComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AttachmentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -3,6 +3,7 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, filter, map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SignUpService } from 'src/app/services/sign-up.service';
 import { NotificationType } from 'src/app/util/notification_type';
@@ -26,6 +27,7 @@ export class MembersLoginComponent implements OnInit {
   constructor(
     public router: Router,
     fBuilder: FormBuilder,
+    private authService: AuthService,
     public mediaObserver: MediaObserver,
     private signUpService: SignUpService,
     private notificationService: NotificationService
@@ -59,19 +61,16 @@ export class MembersLoginComponent implements OnInit {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      setTimeout(() => {}, 1500);
 
       // just return
       return;
     }
-
     setTimeout(() => {
       this.signUpService.onLogin(_payload).then(
         (res) => {
           if (!this.validation(res)) return;
-          setTimeout(() => {
-            this.router.navigate(['member-attachments']);
-          });
+          this.authService.setUserInfo(res);
+          this.router.navigate(['dashboard']);
         },
         (rej) => {
           this.notificationService.showNotification(
@@ -83,22 +82,22 @@ export class MembersLoginComponent implements OnInit {
       );
     }, 1500);
   }
-  validation(stats: any): boolean {
-    if (stats == 0) {
+  validation(data: any): boolean {
+    if (data.data.userStats == 1) {
       this.notificationService.showNotification(
         NotificationType.warning,
         'User not found',
         'Warning'
       );
       return false;
-    } else if (stats == 1) {
+    } else if (data.data.userStats == 2) {
       this.notificationService.showNotification(
         NotificationType.warning,
         'User is inactive',
         'Warning'
       );
       return false;
-    } else if (stats == 2) {
+    } else if (data.data.userStats == 3) {
       this.notificationService.showNotification(
         NotificationType.warning,
         'Invalid passwrod',
@@ -106,7 +105,7 @@ export class MembersLoginComponent implements OnInit {
       );
       return false;
     }
-
+    this.authService.userInfo = data.data;
     return true;
   }
 }

@@ -1,21 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  debounceTime,
-  distinctUntilChanged,
   filter,
-  finalize,
-  switchMap,
+  distinctUntilChanged,
+  debounceTime,
   tap,
+  switchMap,
+  finalize,
 } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SignUpService } from 'src/app/services/sign-up.service';
 import { ISignUpModel } from 'src/app/shared/model/interface/i-sign-up-model';
-import { NotificationType } from 'src/app/util/notification_type';
 import { requestRoutes } from 'src/app/util/request_routes';
 
 const columns = [
@@ -23,7 +22,6 @@ const columns = [
   'fullName',
   'email',
   'contactNo',
-  'referalCode',
   'status',
   'downline',
 ];
@@ -31,27 +29,25 @@ const columns = [
 var routes = new requestRoutes();
 
 @Component({
-  selector: 'app-members-list',
-  templateUrl: './members-list.component.html',
-  styleUrls: ['./members-list.component.css'],
+  selector: 'app-referals',
+  templateUrl: './referals.component.html',
+  styleUrls: ['./referals.component.css'],
 })
-export class MembersListComponent implements OnInit {
+export class ReferalsComponent implements OnInit {
   search = '';
-  isApproved = 0;
+  id = this.authService.getUserId();
   result_length = 0;
   pageNumber = 1;
   pageSize = 10;
   isLoading = false;
-  searchControl = new FormControl();
 
   displayedColumns: string[] = columns;
+
   dataSource = new MatTableDataSource<ISignUpModel>();
-
-  selectedItem!: ISignUpModel;
-
+  searchControl = new FormControl();
   constructor(
-    private dialog: MatDialog,
     private httpClient: HttpClient,
+    private authService: AuthService,
     private signUpService: SignUpService,
     private notificationService: NotificationService
   ) {}
@@ -77,7 +73,7 @@ export class MembersListComponent implements OnInit {
           var url: string =
             routes.baseBackendUrl +
             routes.signUp +
-            `/pagination?search_value=${value}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
+            `/pagination?id=${this.authService.userInfo.id}&search_value=${value}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
           let header = new HttpHeaders();
           header = header.set('api-key', routes.apiKey);
 
@@ -94,14 +90,13 @@ export class MembersListComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
-          // const retVal: any = res;
-          // const { data } = retVal;
-          // const { result } = data;
-          // const { count } = data;
+          const retVal: any = res;
+          const { data } = retVal;
+          const { result } = data;
+          const { count } = data;
 
-          // this.result_length = count;
-          // this.dataSource = new MatTableDataSource(result);
+          this.result_length = count;
+          this.dataSource = new MatTableDataSource(result);
         },
         error: (err) => {
           console.log({
@@ -120,17 +115,16 @@ export class MembersListComponent implements OnInit {
   fetchData() {
     this.isLoading = true;
     this.signUpService
-      .fetchData(0, this.search, this.pageNumber, this.pageSize)
+      .fetchData(1, this.search, this.pageNumber, this.pageSize)
       ?.subscribe({
         next: (res) => {
-          console.log(res);
-          // const retVal: any = res;
-          // const { data } = retVal;
-          // const { result } = data;
-          // const { count } = data;
+          const retVal: any = res;
+          const { data } = retVal;
+          const { result } = data;
+          const { count } = data;
 
-          // this.result_length = count;
-          // this.dataSource = new MatTableDataSource(result);
+          this.result_length = count;
+          this.dataSource = new MatTableDataSource(result);
         },
         error: (err) => {
           console.log({
@@ -144,50 +138,6 @@ export class MembersListComponent implements OnInit {
         },
       });
   }
-  rowSelected(item: ISignUpModel) {
-    this.selectedItem = item;
-    this.isApproved = item.status;
-  }
-  remove() {
-    this.signUpService.remove(this.selectedItem.id)?.subscribe({
-      next: (res) => {},
-      error: (err) => {
-        console.log({
-          error: err,
-        });
-      },
-      complete: () => {
-        this.notificationService.showNotification(
-          NotificationType.success,
-          'Successfully Removed!',
-          'Success'
-        );
-        setTimeout(async () => {
-          this.fetchData();
-        }, 1000);
-      },
-    });
-  }
-  approve(status: number) {
-    this.signUpService.approve(this.selectedItem.id, status)?.subscribe({
-      next: (res) => {},
-      error: (err) => {
-        console.log({
-          error: err,
-        });
-      },
-      complete: () => {
-        this.notificationService.showNotification(
-          NotificationType.success,
-          'Successfully Approved!',
-          'Success'
-        );
-        setTimeout(async () => {
-          this.fetchData();
-        }, 1000);
-      },
-    });
-  }
   refresh() {
     this.clear();
     this.fetchData();
@@ -199,6 +149,7 @@ export class MembersListComponent implements OnInit {
 
     this.fetchData();
   }
+  paginate(param: any) {}
   convertStatus(status: number) {
     if (status === 0) {
       return 'Pending';
@@ -210,11 +161,5 @@ export class MembersListComponent implements OnInit {
       return 'In Active';
     }
     return 'Undefined';
-  }
-  paginate(item: any) {
-    this.pageNumber = item.pageIndex + 1;
-    this.pageSize = item.pageSize;
-
-    this.fetchData();
   }
 }

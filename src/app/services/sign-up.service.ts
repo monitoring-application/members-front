@@ -5,7 +5,7 @@ import { HttpRequestService } from './http-request.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { requestRoutes } from '../util/request_routes';
 import { SignUpFormGroup } from '../shared/model/formgroup/sign-up-form-group';
-import { ISignUpModel } from '../shared/model/interface/i-sign-up-model';
+import { AuthService } from './auth.service';
 
 var routes = new requestRoutes();
 @Injectable({
@@ -16,27 +16,31 @@ export class SignUpService {
   form = this.fb.group({
     id: '',
     member_code: '',
-    first_name: ['', Validators.required],
-    last_name: ['', Validators.required],
+    full_name: ['', Validators.required],
     email: ['', Validators.required],
-    referal_code: '',
+    password: '',
     mobile_number: '',
-    downline: 0,
+    upline: '',
+    ttlDownline: 0,
     status: 0,
   }) as SignUpFormGroup;
   resetform = this.fb.group({
     id: '',
     member_code: '',
-    first_name: ['', Validators.required],
-    last_name: ['', Validators.required],
+    full_name: ['', Validators.required],
     email: ['', Validators.required],
-    referal_code: '',
+    password: '',
     mobile_number: '',
-    downline: 0,
+    upline: '',
+    ttlDownline: 0,
     status: 0,
   }) as SignUpFormGroup;
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   create(): Observable<any> {
     const payload = this.form.value;
@@ -48,11 +52,12 @@ export class SignUpService {
       headers: header,
     });
   }
-  fetchData(value: string, pageNumber: number, pageSize: number) {
+  fetchData(type: number, value: string, pageNumber: number, pageSize: number) {
+    var id = type == 0 ? '' : this.authService.getUserId();
     var url: string =
       routes.baseBackendUrl +
       routes.signUp +
-      `/pagination?search_value=${value}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      `/pagination?id=${id}&search_value=${value}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
     let header = new HttpHeaders();
     header = header.set('api-key', routes.apiKey);

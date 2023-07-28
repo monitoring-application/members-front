@@ -1,0 +1,74 @@
+<section class="pt-14">
+  <div>
+    <form class="grid grid-cols-3 gap-4" action="" [formGroup]="form">
+      <mat-form-field class="w-full" appearance="outline">
+        <input
+          matInput
+          placeholder="GCash Number"
+          formControlName="gcash_number"
+          #input
+        />
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline">
+        <input
+          matInput
+          type="number"
+          placeholder="Amount"
+          formControlName="amount"
+          #input
+        />
+      </mat-form-field>
+      <div class="flex justify-start">
+        <div class="flex gap-2 m-2">
+          <button mat-raised-button color="primary" (click)="submit()">
+            <mat-icon>payment</mat-icon>
+            Request
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <mat-card-subtitle>Payout Request History</mat-card-subtitle>
+      <table mat-table matSort [dataSource]="dataSource" class="w-full">
+        <ng-container matColumnDef="method">
+          <th mat-header-cell *matHeaderCellDef>Method</th>
+          <td mat-cell *matCellDef="let element">
+            {{ "GCash" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.amount }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateRequested">
+          <th mat-header-cell *matHeaderCellDef>Date Requested</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.created_at | date : "short" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.status == 0 ? "Pending" : "Approve" }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        #paginator
+        showFirstLastButtons
+        [pageSizeOptions]="[10, 20, 100, 200]"
+      >
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</section>

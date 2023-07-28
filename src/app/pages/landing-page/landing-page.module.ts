@@ -7,6 +7,12 @@ import { MaterialModule } from 'src/angular-material.module';
 import { LandingPageRoutes } from './landing-page.routing';
 import { NgModule } from '@angular/core';
 import { MembersListComponent } from '../members/members-list/members-list.component';
+import { ReferalsComponent } from '../members/referals/referals.component';
+import { RequestPayoutComponent } from '../members/request-payout/request-payout.component';
+import { AttachmentsFieldsComponent } from 'src/app/shared/components/attachments-fields/attachments-fields.component';
+import { AttachmentsListComponent } from 'src/app/shared/components/attachments-list/attachments-list.component';
+import { MemberDashboardComponent } from '../members/member-dashboard/member-dashboard.component';
+import { AttachmentsComponent } from '../members/attachments/attachments.component';
 
 @NgModule({
   imports: [
@@ -18,6 +24,14 @@ import { MembersListComponent } from '../members/members-list/members-list.compo
     FlexLayoutModule,
     ReactiveFormsModule,
   ],
-  declarations: [MembersListComponent],
+  declarations: [
+    MembersListComponent,
+    ReferalsComponent,
+    RequestPayoutComponent,
+    AttachmentsFieldsComponent,
+    AttachmentsListComponent,
+    MemberDashboardComponent,
+    AttachmentsComponent,
+  ],
 })
 export class AdminLayoutModule {}

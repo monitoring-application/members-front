@@ -6,12 +6,12 @@ export interface SignUpFormGroup extends FormGroup {
   controls: {
     id: AbstractControl;
     member_code: AbstractControl;
-    first_name: AbstractControl;
-    last_name: AbstractControl;
+    full_name: AbstractControl;
     email: AbstractControl;
-    referal_code: AbstractControl;
+    password: AbstractControl;
     mobile_number: AbstractControl;
-    downline: AbstractControl;
+    upline: AbstractControl;
+    ttlDownline: AbstractControl;
     status: AbstractControl;
   };
 }

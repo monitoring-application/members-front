@@ -10,9 +10,25 @@ export class MenuService {
 
   routes: RouteInfo[] = [
     {
-      path: '/members',
-      title: 'Members',
+      path: '/attachments',
+      title: 'Attachments',
+      icon: 'attachment',
+      class: '',
+      children: [],
+      visible: true,
+    },
+    {
+      path: '/referrals',
+      title: 'Referrals',
       icon: 'supervisor_account',
+      class: '',
+      children: [],
+      visible: true,
+    },
+    {
+      path: '/request-payout',
+      title: 'Request Payout',
+      icon: 'paid',
       class: '',
       children: [],
       visible: true,

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DownlineDlgComponent } from './downline-dlg.component';
+import { ReferalsComponent } from './referals.component';
 
-describe('DownlineDlgComponent', () => {
-  let component: DownlineDlgComponent;
-  let fixture: ComponentFixture<DownlineDlgComponent>;
+describe('ReferalsComponent', () => {
+  let component: ReferalsComponent;
+  let fixture: ComponentFixture<ReferalsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DownlineDlgComponent ]
+      declarations: [ ReferalsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DownlineDlgComponent);
+    fixture = TestBed.createComponent(ReferalsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

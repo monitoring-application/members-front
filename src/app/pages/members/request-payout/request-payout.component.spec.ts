@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DownlineListComponent } from './downline-list.component';
+import { RequestPayoutComponent } from './request-payout.component';
 
-describe('DownlineListComponent', () => {
-  let component: DownlineListComponent;
-  let fixture: ComponentFixture<DownlineListComponent>;
+describe('RequestPayoutComponent', () => {
+  let component: RequestPayoutComponent;
+  let fixture: ComponentFixture<RequestPayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DownlineListComponent ]
+      declarations: [ RequestPayoutComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DownlineListComponent);
+    fixture = TestBed.createComponent(RequestPayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
