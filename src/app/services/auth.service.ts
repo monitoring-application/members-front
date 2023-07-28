@@ -58,8 +58,12 @@ export class AuthService {
     return id;
   }
   getUserFullName() {
-    const id = sessionStorage.getItem('full_name');
-    return id;
+    const item = sessionStorage.getItem('full_name');
+    return item;
+  }
+  getUserEmail() {
+    const item = sessionStorage.getItem('email');
+    return item;
   }
 
   isLoggedIn(): boolean {

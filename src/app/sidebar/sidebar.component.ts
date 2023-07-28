@@ -35,7 +35,9 @@ interface states {
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  email = 'unitesly@gmail.com';
+  userEmail = this.authService.getUserEmail();
+  full_name = this.authService.getUserFullName();
+
   expanded: boolean = false;
   expandState: states[] = [];
   public opened: boolean = true;
@@ -45,11 +47,11 @@ export class SidebarComponent implements OnInit {
   @ViewChild('sidenav') sideBar!: MatSidenav;
 
   constructor(
-    private authService: AuthService,
     public router: Router,
+    private menu: MenuService,
     private media: MediaObserver,
-    private sideBarService: SideBarService,
-    private menu: MenuService
+    private authService: AuthService,
+    private sideBarService: SideBarService
   ) {
     this.mediaWatcher = this.media.media$.subscribe(
       (mediaChange: MediaChange) => {
