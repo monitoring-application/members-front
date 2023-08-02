@@ -1,36 +1,67 @@
 <section class="pt-14">
   <div>
-    <form class="grid grid-cols-3 gap-4" action="" [formGroup]="form">
-      <mat-form-field class="w-full" appearance="outline">
-        <input
-          matInput
-          placeholder="GCash Number"
-          formControlName="gcash_number"
-          #input
-        />
-      </mat-form-field>
-      <mat-form-field class="w-full" appearance="outline">
-        <input
-          matInput
-          type="number"
-          placeholder="Amount"
-          formControlName="amount"
-          #input
-        />
-      </mat-form-field>
-      <div class="flex justify-start">
-        <div class="flex gap-2 m-2">
-          <button mat-raised-button color="primary" (click)="submit()">
-            <mat-icon>payment</mat-icon>
-            Request
-          </button>
+    <form class="grid grid-cols-4 gap-4" action="" [formGroup]="form">
+      <mat-card class="mb-4 text-left align-middle">
+        <mat-card-subtitle>Request Payout Details</mat-card-subtitle>
+        <mat-divider [inset]="true"></mat-divider>
+        <div class="mt-4">
+          <mat-label>Total Earnings: </mat-label>
+
+          <span class="font-extrabold text-lg text-red-600">
+            {{ User.ttlDownline | currency : "PHP" : "symbol" }}
+          </span>
         </div>
-      </div>
+        <div class="mt-4">
+          <mat-label>Total Cashed out: </mat-label>
+          <span class="font-extrabold text-lg text-red-600">
+            {{ totalCashedOut | currency : "PHP" : "symbol" }}
+          </span>
+        </div>
+        <div class="mt-4">
+          <mat-label>Current Earnings: </mat-label>
+          <span class="font-extrabold text-lg text-red-600">
+            {{ currentEarn | currency : "PHP" : "symbol" }}
+          </span>
+        </div>
+      </mat-card>
+      <mat-card class="mb-4">
+        <mat-card-subtitle>Request Payout</mat-card-subtitle>
+        <mat-divider [inset]="true" class="pb-4"></mat-divider>
+        <mat-form-field class="w-full" appearance="outline">
+          <input
+            matInput
+            placeholder="GCash Number"
+            formControlName="gcash_number"
+            #input
+          />
+        </mat-form-field>
+        <mat-form-field class="w-full" appearance="outline">
+          <input
+            matInput
+            type="number"
+            placeholder="Amount"
+            formControlName="amount"
+            #input
+          />
+        </mat-form-field>
+        <div class="flex justify-end">
+          <div class="flex gap-2">
+            <button mat-raised-button class="fonts w-36" (click)="submit()">
+              <mat-icon>payment</mat-icon>
+              Request
+            </button>
+          </div>
+        </div>
+      </mat-card>
     </form>
   </div>
   <mat-card>
     <mat-card-content>
-      <mat-card-subtitle>Payout Request History</mat-card-subtitle>
+      <div>
+        <mat-card-subtitle>Payout Request History</mat-card-subtitle>
+        <mat-divider [inset]="true"></mat-divider>
+      </div>
+
       <table mat-table matSort [dataSource]="dataSource" class="w-full">
         <ng-container matColumnDef="method">
           <th mat-header-cell *matHeaderCellDef>Method</th>

@@ -6,7 +6,7 @@ import { NotificationType } from '../util/notification_type';
   providedIn: 'root',
 })
 export class NotificationService {
-  timeout = 1000;
+  timeout = 1500;
   constructor(private toastr: ToastrService) {}
   showNotification(
     type: string = NotificationType.default,
@@ -16,7 +16,7 @@ export class NotificationService {
     switch (type) {
       case NotificationType.info:
         this.toastr.info(
-          '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span>' +
+          '<span data-notify="icon" class="nc-icon nc-bell-55 w-full"></span><span>' +
             message +
             '</span>',
           title || 'Info',

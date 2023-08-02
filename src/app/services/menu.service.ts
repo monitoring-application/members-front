@@ -33,5 +33,21 @@ export class MenuService {
       children: [],
       visible: true,
     },
+    {
+      path: '/profile',
+      title: 'Members Profile',
+      icon: 'paid',
+      class: '',
+      children: [],
+      visible: false,
+    },
+    {
+      path: '/settings',
+      title: 'Members Settings',
+      icon: 'paid',
+      class: '',
+      children: [],
+      visible: false,
+    },
   ];
 }

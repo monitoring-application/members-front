@@ -1,0 +1,57 @@
+<section class="pt-14">
+  <div class="grid grid-cols-4 gap-4">
+    <mat-card class="removeWidth">
+      <mat-card-header>Account Settings</mat-card-header>
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="User.email" name="search" />
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="User.full_name" name="search" />
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput [(ngModel)]="User.mobile_number" name="search" />
+      </mat-form-field>
+      <div class="pb-8">
+        <span>Status: {{ convertStatus(User.status) }}</span>
+      </div>
+      <div class="text-right">
+        <button mat-raised-button class="fonts w-36" (click)="submit()">
+          Update
+        </button>
+      </div>
+    </mat-card>
+    <div>
+      <mat-card class="removeWidth mb-4">
+        <mat-card-header>My Referral</mat-card-header>
+        <mat-form-field class="w-full" appearance="outline">
+          <input
+            matInput
+            name="search"
+            [(ngModel)]="referralLink"
+            readonly="true"
+          />
+        </mat-form-field>
+      </mat-card>
+      <mat-card class="removeWidth mb-4">
+        <mat-card-header>Referred Users Count</mat-card-header>
+        <div class="text-center mt-4">
+          <mat-icon class="pr-12">people</mat-icon>
+          <span class="font-extrabold text-3xl">
+            <a routerLink="/referrals">{{ User.ttlDownline }}</a>
+          </span>
+        </div>
+      </mat-card>
+      <mat-card class="removeWidth">
+        <mat-card-header>Total Earnings</mat-card-header>
+        <div class="text-center mt-4">
+          <span class="font-extrabold text-3xl text-red-600">
+            {{ userCounts | currency : "PHP" : "symbol" }}
+          </span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</section>

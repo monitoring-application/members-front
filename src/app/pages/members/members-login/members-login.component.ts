@@ -68,9 +68,10 @@ export class MembersLoginComponent implements OnInit {
     setTimeout(() => {
       this.signUpService.onLogin(_payload).then(
         (res) => {
+          console.log(res);
           if (!this.validation(res)) return;
           this.authService.setUserInfo(res);
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['profile']);
         },
         (rej) => {
           this.notificationService.showNotification(

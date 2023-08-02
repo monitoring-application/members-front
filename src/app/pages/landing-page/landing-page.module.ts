@@ -13,6 +13,8 @@ import { AttachmentsFieldsComponent } from 'src/app/shared/components/attachment
 import { AttachmentsListComponent } from 'src/app/shared/components/attachments-list/attachments-list.component';
 import { MemberDashboardComponent } from '../members/member-dashboard/member-dashboard.component';
 import { AttachmentsComponent } from '../members/attachments/attachments.component';
+import { MemberSettingsComponent } from '../members/member-settings/member-settings.component';
+import { MemberProfileComponent } from '../members/member-profile/member-profile.component';
 
 @NgModule({
   imports: [
@@ -30,8 +32,10 @@ import { AttachmentsComponent } from '../members/attachments/attachments.compone
     RequestPayoutComponent,
     AttachmentsFieldsComponent,
     AttachmentsListComponent,
-    MemberDashboardComponent,
     AttachmentsComponent,
+    MemberDashboardComponent,
+    MemberSettingsComponent,
+    MemberProfileComponent,
   ],
 })
 export class AdminLayoutModule {}

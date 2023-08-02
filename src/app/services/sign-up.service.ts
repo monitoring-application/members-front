@@ -52,8 +52,8 @@ export class SignUpService {
       headers: header,
     });
   }
-  fetchData(type: number, value: string, pageNumber: number, pageSize: number) {
-    var id = type == 0 ? '' : this.authService.getUserId();
+  fetchData(value: string, pageNumber: number, pageSize: number) {
+    var id = this.authService.getUserId();
     var url: string =
       routes.baseBackendUrl +
       routes.signUp +
@@ -90,6 +90,18 @@ export class SignUpService {
     header = header.set('api-key', routes.apiKey);
 
     const data = this.httpClient.delete(url, {
+      headers: header,
+    });
+    return data;
+  }
+
+  findAndcount() {
+    var id = this.authService.getUserId();
+    var url: string = routes.baseBackendUrl + routes.signUp + '/count/' + id;
+    let header = new HttpHeaders();
+    header = header.set('api-key', routes.apiKey);
+
+    const data = this.httpClient.get(url, {
       headers: header,
     });
     return data;

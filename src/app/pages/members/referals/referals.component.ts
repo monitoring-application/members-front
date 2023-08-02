@@ -70,33 +70,14 @@ export class ReferalsComponent implements OnInit {
         switchMap((value) => {
           this.search = value;
 
-          var url: string =
-            routes.baseBackendUrl +
-            routes.signUp +
-            `/pagination?id=${this.authService.userInfo.id}&search_value=${value}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
-          let header = new HttpHeaders();
-          header = header.set('api-key', routes.apiKey);
-
-          return this.httpClient
-            .get(url, {
-              headers: header,
-            })
-            .pipe(
-              finalize(() => {
-                this.isLoading = false;
-              })
-            );
+          return this.signUpService
+            .fetchData(value, this.pageNumber, this.pageSize)
+            .pipe(finalize(() => {}));
         })
       )
       .subscribe({
         next: (res) => {
-          const retVal: any = res;
-          const { data } = retVal;
-          const { result } = data;
-          const { count } = data;
-
-          this.result_length = count;
-          this.dataSource = new MatTableDataSource(result);
+          this.loadData(res);
         },
         error: (err) => {
           console.log({
@@ -112,19 +93,24 @@ export class ReferalsComponent implements OnInit {
       });
   }
 
+  loadData(res: any) {
+    const retVal: any = res;
+    const { data } = retVal;
+    const { result } = data;
+    const { count } = data;
+
+    this.result_length = count;
+    this.dataSource = new MatTableDataSource(result);
+  }
+
   fetchData() {
     this.isLoading = true;
+
     this.signUpService
-      .fetchData(1, this.search, this.pageNumber, this.pageSize)
+      .fetchData(this.search, this.pageNumber, this.pageSize)
       ?.subscribe({
         next: (res) => {
-          const retVal: any = res;
-          const { data } = retVal;
-          const { result } = data;
-          const { count } = data;
-
-          this.result_length = count;
-          this.dataSource = new MatTableDataSource(result);
+          this.loadData(res);
         },
         error: (err) => {
           console.log({

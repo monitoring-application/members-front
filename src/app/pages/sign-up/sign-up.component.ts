@@ -70,34 +70,6 @@ export class SignUpComponent implements OnInit {
 
       return false;
     }
-    // if (this.form.value.first_name == '') {
-    //   this.loading = false;
-    //   this.notificationService.showNotification(
-    //     NotificationType.error,
-    //     'Please supply the first name!',
-    //     'Information'
-    //   );
-    //   return false;
-    // }
-    // if (this.form.value.last_name == '') {
-    //   this.loading = false;
-    //   this.notificationService.showNotification(
-    //     NotificationType.error,
-    //     'Please supply the last name!',
-    //     'Information'
-    //   );
-    //   return false;
-    // }
-    // if (this.form.value.email == '') {
-    //   this.loading = false;
-    //   this.notificationService.showNotification(
-    //     NotificationType.error,
-    //     'Please supply the email addresss!',
-    //     'Information'
-    //   );
-    //   return false;
-    // }
-
     return true;
   }
 }

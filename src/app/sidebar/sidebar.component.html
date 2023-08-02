@@ -14,12 +14,12 @@
     <h4 class="user-panel-name">{{ full_name }}</h4>
     <h5 class="user-panel-email">{{ userEmail }}</h5>
     <div class="user-panel-icons">
-      <a routerLink="/profile/overview" mat-icon-button>
+      <a routerLink="/profile" mat-icon-button>
         <mat-icon class="icon-18">account_circle</mat-icon>
       </a>
-      <a routerLink="/profile/settings" mat-icon-button>
+      <!-- <a routerLink="/settings" mat-icon-button>
         <mat-icon class="icon-18">settings</mat-icon>
-      </a>
+      </a> -->
       <a (click)="logout()" mat-icon-button>
         <mat-icon class="icon-18">exit_to_app</mat-icon>
       </a>
@@ -36,6 +36,7 @@
       >
         <a
           mat-list-item
+          *ngIf="menuItem.visible"
           (click)="onItemSelected(menuItem)"
           class="menu-list-item"
         >

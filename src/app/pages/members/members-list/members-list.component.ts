@@ -73,35 +73,14 @@ export class MembersListComponent implements OnInit {
         }),
         switchMap((value) => {
           this.search = value;
-
-          var url: string =
-            routes.baseBackendUrl +
-            routes.signUp +
-            `/pagination?search_value=${value}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
-          let header = new HttpHeaders();
-          header = header.set('api-key', routes.apiKey);
-
-          return this.httpClient
-            .get(url, {
-              headers: header,
-            })
-            .pipe(
-              finalize(() => {
-                this.isLoading = false;
-              })
-            );
+          return this.signUpService
+            .fetchData(value, this.pageNumber, this.pageSize)
+            .pipe(finalize(() => {}));
         })
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
-          // const retVal: any = res;
-          // const { data } = retVal;
-          // const { result } = data;
-          // const { count } = data;
-
-          // this.result_length = count;
-          // this.dataSource = new MatTableDataSource(result);
+          this.loadData(res);
         },
         error: (err) => {
           console.log({
@@ -110,27 +89,27 @@ export class MembersListComponent implements OnInit {
         },
         complete: () => {
           setTimeout(async () => {
-            this.isLoading = false;
             console.log('completed');
           }, 1000);
         },
       });
   }
+  loadData(res: any) {
+    const retVal: any = res;
+    const { data } = retVal;
+    const { result } = data;
+    const { count } = data;
 
+    this.result_length = count;
+    this.dataSource = new MatTableDataSource(result);
+  }
   fetchData() {
     this.isLoading = true;
     this.signUpService
-      .fetchData(0, this.search, this.pageNumber, this.pageSize)
+      .fetchData(this.search, this.pageNumber, this.pageSize)
       ?.subscribe({
         next: (res) => {
-          console.log(res);
-          // const retVal: any = res;
-          // const { data } = retVal;
-          // const { result } = data;
-          // const { count } = data;
-
-          // this.result_length = count;
-          // this.dataSource = new MatTableDataSource(result);
+          this.loadData(res);
         },
         error: (err) => {
           console.log({
@@ -208,6 +187,8 @@ export class MembersListComponent implements OnInit {
       return 'Disapprove';
     } else if (status === 3) {
       return 'In Active';
+    } else if (status === 4) {
+      return 'Verified';
     }
     return 'Undefined';
   }

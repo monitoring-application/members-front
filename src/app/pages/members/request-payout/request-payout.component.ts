@@ -17,11 +17,15 @@ const columns = ['method', 'amount', 'dateRequested', 'datePaid', 'status'];
 })
 export class RequestPayoutComponent implements OnInit {
   form = this.payoutRequestService.form;
+  User!: any;
   mediaSub!: Subscription;
   public isMobile: boolean = false;
 
-  displayedColumns: string[] = columns;
+  totalEarn: any = 0;
+  currentEarn = 0;
+  totalCashedOut = 0;
 
+  displayedColumns: string[] = columns;
   dataSource = new MatTableDataSource<IPayoutRequestModel>();
 
   constructor(
@@ -67,6 +71,7 @@ export class RequestPayoutComponent implements OnInit {
           'Success'
         );
         setTimeout(() => {
+          this.fetchData();
           this.payoutRequestService.form.reset(
             this.payoutRequestService.resetform.value
           );
@@ -76,10 +81,14 @@ export class RequestPayoutComponent implements OnInit {
   }
 
   fetchData() {
+    this.User = this.authService.getUserInfo();
+
     this.payoutRequestService.fetchData()?.subscribe({
       next: (res) => {
         const retVal: any = res;
         const { data } = retVal;
+
+        this.totalCashedOut = this.totalCashOut(data);
 
         this.dataSource = new MatTableDataSource(data);
       },
@@ -89,9 +98,22 @@ export class RequestPayoutComponent implements OnInit {
         });
       },
       complete: () => {
-        setTimeout(async () => {}, 1000);
+        setTimeout(async () => {
+          this.totalEarn = this.User.ttlDownline;
+
+          this.currentEarn = parseInt(this.totalEarn) - this.totalCashedOut;
+        }, 1000);
       },
     });
+  }
+
+  totalCashOut(data: IPayoutRequestModel[]) {
+    const totalCashout = data
+      .filter(({ status }) => status === 1)
+      .map((a: { amount: any }) => a.amount)
+      .reduce((acc: any, n: any) => acc + n, 0);
+
+    return totalCashout;
   }
 
   validation(): boolean {
@@ -106,6 +128,16 @@ export class RequestPayoutComponent implements OnInit {
 
       return false;
     }
+    if (this.currentEarn < this.form.controls.amount.value) {
+      this.notificationService.showNotification(
+        NotificationType.warning,
+        'Amount requested is higher than current earnings!',
+        'Warning'
+      );
+
+      return false;
+    }
+
     return true;
   }
 }

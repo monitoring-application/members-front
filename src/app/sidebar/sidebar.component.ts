@@ -43,7 +43,7 @@ export class SidebarComponent implements OnInit {
   public opened: boolean = true;
   public menuItems: any[] | undefined;
   private mediaWatcher: Subscription;
-  systemName: string = 'Admin Panel';
+  systemName: string = 'Members Panel';
   @ViewChild('sidenav') sideBar!: MatSidenav;
 
   constructor(
