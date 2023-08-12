@@ -1,32 +1,32 @@
 <section class="pt-14">
-  <div class="grid grid-cols-2 gap-4">
-    <mat-form-field class="w-full" appearance="outline">
-      <mat-icon matPrefix>search</mat-icon>
-      <input
-        matInput
-        placeholder="Search Name"
-        [formControl]="searchControl"
-        name="search"
-        #input
-      />
-      <button *ngIf="search" matSuffix (click)="clear()" color="primary">
-        <mat-icon>cancel</mat-icon>
-      </button>
-    </mat-form-field>
-    <div class="flex justify-start">
-      <div class="flex gap-2 m-2">
-        <button
-          mat-fab
-          color="primary"
-          (click)="refresh()"
-          matTooltip="Refresh"
-        >
-          <mat-icon>refresh</mat-icon>
+  <mat-card>
+    <div class="grid grid-cols-2 gap-4">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          placeholder="Search Name"
+          [formControl]="searchControl"
+          name="search"
+          #input
+        />
+        <button *ngIf="search" matSuffix (click)="clear()" color="primary">
+          <mat-icon>cancel</mat-icon>
         </button>
+      </mat-form-field>
+      <div class="flex justify-start">
+        <div class="flex gap-2 m-2">
+          <button
+            mat-fab
+            color="primary"
+            (click)="refresh()"
+            matTooltip="Refresh"
+          >
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <mat-card>
     <mat-card-content>
       <table mat-table matSort [dataSource]="dataSource" class="w-full">
         <ng-container matColumnDef="membersCode">

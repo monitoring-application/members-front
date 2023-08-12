@@ -1,0 +1,49 @@
+<div class="flex">
+  <div class="flex-1">
+    <h2 mat-dialog-title class="text-green-600">Upload Attachments</h2>
+  </div>
+  <div class="flex-none ...">
+    <button mat-icon-button matTooltip="Close" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="mb-3">
+  <mat-divider></mat-divider>
+</div>
+<div>
+  <div class="mt-5 gap-4 grid grid-cols-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Page/Channel Name</mat-label>
+      <input
+        matInput
+        placeholder="Raffy Tulfo in Action"
+        #input
+        [(ngModel)]="pageName"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Social Media</mat-label>
+      <mat-select>
+        <mat-option
+          *ngFor="let socMed of socialMedias"
+          [value]="socMed.id"
+          (onSelectionChange)="selected(socMed)"
+          >{{ socMed.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <input type="file" (change)="chooseFile($event)" />
+  </div>
+  <div class="flex justify-end">
+    <button
+      mat-raised-button
+      class="fonts bg-red-900 text-white"
+      (click)="submit()"
+    >
+      Submit
+    </button>
+  </div>
+</div>
