@@ -8,5 +8,5 @@ export interface IAttachedModel {
   avatar: string;
   page_name: string;
   social_media: string;
-  status: boolean;
+  status: number;
 }

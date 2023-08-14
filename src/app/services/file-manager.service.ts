@@ -20,9 +20,17 @@ export class FileManagerService {
 
   upload(file: any) {
     var url: string = routes.baseBackendUrl + routes.fileManager;
-
-    var data = this.client.post(`${url}/upload`, file);
-    return data;
+    return new Promise((res, rej) => {
+      this.client.post(`${url}/upload`, file).subscribe({
+        next: async (resp: any) => {
+          res(resp);
+        },
+        error: (err) => {
+          console.log(err);
+          rej(err);
+        },
+      });
+    });
   }
   findAll() {
     var id: string = this.authService.getUserId() || '';

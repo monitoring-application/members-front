@@ -82,16 +82,38 @@ export class AttachmentDlgComponent implements OnInit {
     formData.append('social_media', this.selectedItem.name);
     formData.append('page_name', this.pageName);
 
-    this.fileManagerService.upload(formData).subscribe((x) => {
-      this.notificationService.showNotification(
-        NotificationType.success,
-        'Successfully Upload!',
-        'Success'
-      );
-      setTimeout(() => {
-        this.dialog.close(true);
-      }, 1500);
-    });
+    this.fileManagerService.upload(formData).then(
+      (res) => {
+        console.log(res);
+        if (!this.validation()) return;
+
+        this.notificationService.showNotification(
+          NotificationType.success,
+          'Successfully Upload!',
+          'Success'
+        );
+      },
+      (rej) => {
+        this.notificationService.showNotification(
+          NotificationType.warning,
+          rej,
+          'Warning'
+        );
+      }
+    );
+
+    // this.fileManagerService.upload(formData);
+
+    // this.fileManagerService.upload(formData).subscribe((x) => {
+    //   this.notificationService.showNotification(
+    //     NotificationType.success,
+    //     'Successfully Upload!',
+    //     'Success'
+    //   );
+    //   setTimeout(() => {
+    //     this.dialog.close(true);
+    //   }, 1500);
+    // });
   }
 
   validation(): boolean {

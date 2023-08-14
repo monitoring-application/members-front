@@ -21,11 +21,14 @@
         <img class="user-panel-avatar" src="{{ attachment.path }}" />
       </mat-card-content>
       <mat-card-actions>
-        <span class="text-green-500 pl-3" *ngIf="attachment.status"
+        <span class="text-green-500 pl-3" *ngIf="attachment.status == 1"
           >APPROVED</span
         >
-        <span class="text-red-500 pl-3" *ngIf="!attachment.status"
+        <span class="text-orange-500 pl-3" *ngIf="attachment.status == 0"
           >PENDING</span
+        >
+        <span class="text-red-500 pl-3" *ngIf="attachment.status == 2"
+          >DISSAPROVED</span
         >
         <button
           mat-button
