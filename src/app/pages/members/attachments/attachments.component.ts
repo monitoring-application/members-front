@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FileManagerService } from 'src/app/services/file-manager.service';
 import { AttachmentDlgComponent } from './attachment-dlg/attachment-dlg.component';
 import { IAttachedModel } from 'src/app/shared/model/interface/i-attached-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attachments',
@@ -14,6 +15,7 @@ import { IAttachedModel } from 'src/app/shared/model/interface/i-attached-model'
 export class AttachmentsComponent implements OnInit {
   attachments!: IAttachedModel[];
   constructor(
+    public router: Router,
     private dialog: MatDialog,
     private authService: AuthService,
     private fileManagerService: FileManagerService
@@ -41,14 +43,12 @@ export class AttachmentsComponent implements OnInit {
       const retVal: any = x;
       const { data } = retVal;
       this.attachments = data;
-
-      console.log(data);
     });
   }
   remove(id: number) {
     this.fileManagerService.remove(id).subscribe((x) => {
       this.loadData();
-      console.log(x);
+      this.router.navigateByUrl('/attachments');
     });
   }
 }

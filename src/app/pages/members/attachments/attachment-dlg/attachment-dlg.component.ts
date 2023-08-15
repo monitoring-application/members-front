@@ -84,7 +84,6 @@ export class AttachmentDlgComponent implements OnInit {
 
     this.fileManagerService.upload(formData).then(
       (res) => {
-        console.log(res);
         if (!this.validation()) return;
 
         this.notificationService.showNotification(
@@ -92,6 +91,9 @@ export class AttachmentDlgComponent implements OnInit {
           'Successfully Upload!',
           'Success'
         );
+        setTimeout(() => {
+          this.close();
+        }, 1500);
       },
       (rej) => {
         this.notificationService.showNotification(
@@ -101,19 +103,6 @@ export class AttachmentDlgComponent implements OnInit {
         );
       }
     );
-
-    // this.fileManagerService.upload(formData);
-
-    // this.fileManagerService.upload(formData).subscribe((x) => {
-    //   this.notificationService.showNotification(
-    //     NotificationType.success,
-    //     'Successfully Upload!',
-    //     'Success'
-    //   );
-    //   setTimeout(() => {
-    //     this.dialog.close(true);
-    //   }, 1500);
-    // });
   }
 
   validation(): boolean {

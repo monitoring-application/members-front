@@ -48,7 +48,7 @@
         <mat-card-header>Total Earnings</mat-card-header>
         <div class="text-center mt-4">
           <span class="font-extrabold text-3xl text-red-600">
-            {{ userCounts | currency : "PHP" : "symbol" }}
+            {{ userCounts + isVerified | currency : "PHP" : "symbol" }}
           </span>
         </div>
       </mat-card>

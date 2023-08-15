@@ -12,6 +12,7 @@ import { NotificationType } from 'src/app/util/notification_type';
 })
 export class MemberProfileComponent implements OnInit {
   userCounts = 0;
+  isVerified = 0;
   User!: any;
   referralLink = '';
 
@@ -44,6 +45,10 @@ export class MemberProfileComponent implements OnInit {
     });
     this.referralLink = this.authService.getReferralLink();
     this.User = User;
+
+    if (this.User.status == 4) this.isVerified = 10;
+
+    console.log(this.isVerified);
   }
 
   convertStatus(status: string) {

@@ -101,7 +101,7 @@ export class MembersLoginComponent implements OnInit {
     } else if (data.data.userStats == 3) {
       this.notificationService.showNotification(
         NotificationType.warning,
-        'Invalid passwrod',
+        'Invalid password',
         'Warning'
       );
       return false;

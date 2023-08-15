@@ -34,9 +34,11 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div>
-    <input type="file" (change)="chooseFile($event)" />
-  </div>
+  <input
+    type="file"
+    class="mb-4 block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-non dark:placeholder-gray-400"
+    (change)="chooseFile($event)"
+  />
   <div class="flex justify-end">
     <button
       mat-raised-button

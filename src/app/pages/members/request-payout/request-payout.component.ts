@@ -21,7 +21,7 @@ export class RequestPayoutComponent implements OnInit {
   mediaSub!: Subscription;
   public isMobile: boolean = false;
 
-  totalEarn: any = 0;
+  totalEarn = 0;
   currentEarn = 0;
   totalCashedOut = 0;
 
@@ -99,9 +99,12 @@ export class RequestPayoutComponent implements OnInit {
       },
       complete: () => {
         setTimeout(async () => {
-          this.totalEarn = this.User.ttlDownline;
+          const ttlDownLine = parseInt(this.User.ttlDownline);
 
-          this.currentEarn = parseInt(this.totalEarn) - this.totalCashedOut;
+          this.totalEarn =
+            this.User.status == 4 ? ttlDownLine + 10 : ttlDownLine;
+
+          this.currentEarn = this.totalEarn - this.totalCashedOut;
         }, 1000);
       },
     });
